@@ -45,4 +45,6 @@ print(fruits_colors)
 
 popped_item = fruits_colors.popitem()
 
+del fruits_colors["green_apple"]
+del fruits_colors["bumba"]  # What here?
 del fruits_colors
