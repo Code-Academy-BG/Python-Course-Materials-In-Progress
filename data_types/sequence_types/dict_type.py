@@ -1,3 +1,6 @@
+import random
+from collections import Counter, defaultdict
+
 fruits_colors = {
     "green_apple": "green",
     "banana": "yellow",
@@ -48,3 +51,36 @@ popped_item = fruits_colors.popitem()
 del fruits_colors["green_apple"]
 # del fruits_colors["bumba"]  # What here?
 del fruits_colors
+
+
+words_counter = Counter('gallahad')
+print(words_counter)
+
+c = Counter({'red': 4, 'blue': 2})
+print(c)
+c2 = Counter(cats=4, dogs=8)
+print(c2)
+
+print(c["black"])
+
+c3 = Counter(dict([(10, 4), (0, 9)]))
+print(c3.most_common(1))
+# print(c3.total())
+
+c3.subtract(c2)
+print(c3)
+
+example_default_dict = defaultdict(list)  # {}
+example_default_dict_str = defaultdict(str)  # {}
+example_default_dict_int = defaultdict(int)  # {}
+example_default_dict_float = defaultdict(float)  # {}
+example_default_dict_custom_dict = defaultdict(lambda: {"grades": []})  # {}
+for name in ["N1", "N2", "N3", "N4"]:
+    example_default_dict[name].append(random.choice(range(100)))
+    example_default_dict_custom_dict[name]["grades"].extend(["C", "Linux"])
+# print(example_default_dict)
+# print(example_default_dict["N9"])
+# print(example_default_dict_custom_dict)
+
+dict_comprehension = {(value + 1) ** 2: value for value in range(10)}
+print(dict_comprehension)
