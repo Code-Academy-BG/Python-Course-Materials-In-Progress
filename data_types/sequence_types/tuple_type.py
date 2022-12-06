@@ -15,3 +15,7 @@ print(strange_tuple, len(strange_tuple))
 # print(strange_tuple)
 
 tuple_of_single_element = (1,)
+
+
+tuple_of_different_elements = ((8, 3), [1, 2], {4, 5})
+print(tuple_of_different_elements)
