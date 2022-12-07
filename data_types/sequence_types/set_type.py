@@ -9,6 +9,7 @@ print(a == b, "a == b")  # a is equivalent to b
 print(a != b, "a != b")  # a is not equivalent to b
 print(a <= b, "a <= b")  # a is subset of b
 print(a < b, "a < b")  # a is proper subset of b
+print(a > b, "a > b")  # a is proper superset of b
 print(a >= b, "a >= b")  # a is superset of b
 
 print("symetric difference between 'a' and 'b'", a.symmetric_difference(b))
