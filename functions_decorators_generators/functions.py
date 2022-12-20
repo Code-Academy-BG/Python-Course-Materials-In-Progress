@@ -39,8 +39,10 @@ def store_names(name: str, names=[]):
     return names
 
 
+result = 80
+
 def power(x, y):
-    result = 1
+    global result
     while y > 0:
         result *= x
         y -= 1
@@ -91,37 +93,63 @@ def f3_special_syntax(arg1, arg2, /, arg_or_kwarg, *, kwarg1=None):
 ################################################################################
 
 
+def scope_test():
+    def do_local():
+        spam = "local spam"
+
+    def do_nonlocal():
+        nonlocal spam
+        spam = "nonlocal spam"
+
+    def do_global():
+        global spam
+        spam = "global spam"
+
+    spam = "test spam"
+    do_local()
+    print("After local assignment:", spam, id(spam))
+    do_nonlocal()
+    print("After nonlocal assignment:", spam, id(spam))
+    do_global()
+    print("After global assignment:", spam, id(spam))
+
+
 if __name__ == "__main__":
     # print(locals())
     # hello_world()
-    print_name = "German"
-    print("print_name in locals()", print_name in locals())
-    print_age = 27
-    print_human_info(print_name, print_age, callback_fn=callback_fn_example, year_of_graduate=2018)
+    # print_name = "German"
+    # print("print_name in locals()", print_name in locals())
+    # print_age = 27
+    # print_human_info(print_name, print_age, callback_fn=callback_fn_example, year_of_graduate=2018)
 
     # names = store_names("German")
     # names_after_next_call = store_names("Pesho")
 
     # Assigned as a variable or in a data structure
-    print_fn_ref = print_human_info
+    # print_fn_ref = print_human_info
     # print_fn_ref("Pesho", 32)
 
-    # print(power(2, 3))
+    print(power(2, 3))
     # print(power(x=2, y=3))
 
     # print(users_list("German", "Radina", 558, "Filip", "Yordan", "Radoslav", main_user_age=25, Radina="fff", Delyan="ccc"))
 
-    print_args_kwargs(Radina="fff", Delyan="ccc")
+    # print_args_kwargs(Radina="fff", Delyan="ccc")
     # strict_arguments(15, 20, 25, 25, user1=26)
 
 
     ###############################################################################################
     ################### Special syntax function calls #############################################
 
-    f1_special_syntax(1, 2)
+    # f1_special_syntax(1, 2)
+    #
+    # f2_special_syntax(1, 2, 5)
+    # f2_special_syntax(1, 2, arg_or_kwarg=5)
+    #
+    # f3_special_syntax(1, 2, 5)
+    # f3_special_syntax(1, 2, arg_or_kwarg=5, kwarg1="Something")
 
-    f2_special_syntax(1, 2, 5)
-    f2_special_syntax(1, 2, arg_or_kwarg=5)
+    scope_test()
+    print("In global scope:", spam)
 
-    f3_special_syntax(1, 2, 5)
-    f3_special_syntax(1, 2, arg_or_kwarg=5, kwarg1="Something")
+    variable_add = lambda x: x + 2
