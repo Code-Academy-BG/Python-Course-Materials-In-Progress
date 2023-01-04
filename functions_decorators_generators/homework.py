@@ -40,7 +40,7 @@ def reverse_string(string):
 
 # Generator & decorator ***
 # Define looking_glass context manager that should print out text reversed
-# version while Context manager is acctive
+# version while Context manager is active
 
 # with looking_glass():
 #     print('Pesho, Gosho, Mincho')
