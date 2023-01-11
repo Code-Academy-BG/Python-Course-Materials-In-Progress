@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from db_operations.db_connector import connect_db
+# from db_operations.db_connector import connect_db
 from web.web_url_connector import get_code_academy_index, parse_html_text
 
 

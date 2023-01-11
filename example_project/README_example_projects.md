@@ -38,3 +38,9 @@ Project directory (Worsts)
     - module1.py
     - module2.py
     - module3.py
+
+
+We use flake8 as linter and black as formatter.
+To use them, you must navigate to the Project root directory and from them:
+- black ./
+- flake8
