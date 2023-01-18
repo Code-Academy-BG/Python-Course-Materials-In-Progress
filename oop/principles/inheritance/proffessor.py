@@ -10,6 +10,9 @@ class Professor(Student):
         self.faculty = faculty
         self.experience_ages = experience_ages
 
+    def __contains__(self, discipline):
+        return discipline in self.__disciplines
+
     @property
     def disciplines(self):
         return self.__disciplines
@@ -45,6 +48,6 @@ prof = Professor(
     155,
 )
 
-prof.study("Astro physics")
-print(f"Professor {prof.name} read {prof.read_books()}")
+# prof.study("Astro physics")
+# print(f"Professor {prof.name} read {prof.read_books()}")
 
