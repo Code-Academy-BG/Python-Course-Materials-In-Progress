@@ -25,6 +25,13 @@ class Professor(Student):
         self.__disciplines.append(discipline)
         return "Oh, another one for me..."
 
+    def study(self, discipline):
+        print(f"{self.name} is mastering {discipline}")
+
+    def read_books(self):
+        student_result = super().read_books()
+        return student_result * 100
+
 
 prof = Professor(
     "FMI",
@@ -38,8 +45,6 @@ prof = Professor(
     155,
 )
 
-print(prof, prof.disciplines)
-prof.disciplines = []
-print(prof.disciplines)
+prof.study("Astro physics")
+print(f"Professor {prof.name} read {prof.read_books()}")
 
-print(prof.add_discipline("Python"))
