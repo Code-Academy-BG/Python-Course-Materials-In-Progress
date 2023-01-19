@@ -4,19 +4,27 @@ class ClassRoom:
         self.seats = range(24)
 
     def __iter__(self):
-        return self
+        yield from self.seats
 
-    def __next__(self):
+
+class ClassRoom2:
+    def __init__(self):
+        self._start_seat = 0
+        self.seats = list(range(1, 25))
+
+    def __iter__(self):
+        yield from self.seats
+
+    def __getitem__(self, item):
         try:
-            seat = self.seats[self._start_seat]
-            self._start_seat += 1
-            return seat
-        except StopIteration:
-            return
+            return self.seats[item]
+        except IndexError:
+            return None
 
 
-class_room = ClassRoom()
+class_room = ClassRoom2()
+# for ss in class_room:
+#     print(ss)
 
-# This is causing IndexError after printing out the last of seats.
-for seat in class_room:
-    print(seat)
+print(class_room[0])
+print(class_room[25])

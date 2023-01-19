@@ -4,14 +4,20 @@ from oop.principles.inheritance.student import Student
 class Professor(Student):
     TITLE = "Professor"
 
-    def __init__(self, faculty, experience_ages, disciplines, *args):
-        super().__init__(*args)
+    def __init__(self, faculty, experience_ages, disciplines, *args, create_student=False):
+        super().__init__(*args, validate_age=False, create_student=create_student)
         self.__disciplines = disciplines
         self.faculty = faculty
         self.experience_ages = experience_ages
 
     def __contains__(self, discipline):
-        return discipline in self.__disciplines
+        return self.disciplines.index(discipline) != -1
+
+    def __repr__(self):
+        return f"<Professor {self.name}, aged: {self.age}>"
+
+    def __str__(self):
+        return f"Professor {self.name}"
 
     @property
     def disciplines(self):
@@ -40,14 +46,15 @@ prof = Professor(
     "FMI",
     25,
     ["Math", "Advanced Math 1"],
-    3,
-    "1701682025",
+    None,
+    None,
     "Poli",
     23,
     "f",
     155,
 )
-
+result = "Math" in prof
+print(result)
 # prof.study("Astro physics")
 # print(f"Professor {prof.name} read {prof.read_books()}")
 

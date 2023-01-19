@@ -5,6 +5,11 @@ from oop.principles.inheritance.person import Person
 class Student(Person, TimestampMixin):
     def __init__(self, semester, faculty_number, *args, **kwargs):
         super().__init__(*args)
+        if not kwargs["create_student"]:
+            return
+        if self.age < 18 and kwargs["validate_age"]:
+            raise Exception("Student can't be under 18")
+
         self.semester = semester
         self.faculty_number = faculty_number
         self.scholarship = kwargs.pop("scholarship", 0)
@@ -37,12 +42,6 @@ class Student(Person, TimestampMixin):
         # Inspect what this can be used for
         pass
 
-    def __new__(cls, *args, **kwargs):
-        if args[3] < 18:
-            print("Student can't be under 18 years old")
-            return
-        return super().__new__(cls)
-
     def study(self, discipline):
         print(f"{self.name} is studying {discipline}")
 
@@ -69,10 +68,10 @@ class Student(Person, TimestampMixin):
 
 
 # student_pesho = Student(8, 9988855, "Pesho", 32, "Male", 185, scholarship=1000)
-student_gosho = Student(8, 9988855, "Gosho", 33, "Male", 185, scholarship=1000)
-student_misho = Student(8, 9988855, "Gosho", 17, "Male", 185, scholarship=1000)
-
-print(student_gosho, student_misho)
+# student_gosho = Student(8, 9988855, "Gosho", 33, "Male", 185, scholarship=1000)
+# student_misho = Student(8, 9988855, "Gosho", 17, "Male", 185, scholarship=1000)
+#
+# print(student_gosho, student_misho)
 
 # student.study("Astro physics")
 # print(f"Student {student.name} read {student.read_books()}")
