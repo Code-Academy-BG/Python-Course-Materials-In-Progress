@@ -11,7 +11,7 @@ class Professor(Student):
         self.experience_ages = experience_ages
 
     def __contains__(self, discipline):
-        return self.disciplines.index(discipline) != -1
+        return discipline in self.__disciplines
 
     def __repr__(self):
         return f"<Professor {self.name}, aged: {self.age}>"
@@ -53,8 +53,8 @@ prof = Professor(
     "f",
     155,
 )
-result = "Math" in prof
-print(result)
+
+print("Math" in prof)
 # prof.study("Astro physics")
 # print(f"Professor {prof.name} read {prof.read_books()}")
 
