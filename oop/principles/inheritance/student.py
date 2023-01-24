@@ -1,11 +1,13 @@
+from oop.exercise.pen import Pen
 from oop.mixins import TimestampMixin
 from oop.principles.inheritance.person import Person
 
 
 class Student(Person, TimestampMixin):
     def __init__(self, semester, faculty_number, *args, **kwargs):
+        self.pens = {}
         super().__init__(*args)
-        if not kwargs["create_student"]:
+        if not kwargs.get("create_student"):
             return
         if self.age < 18 and kwargs["validate_age"]:
             raise Exception("Student can't be under 18")
@@ -48,6 +50,16 @@ class Student(Person, TimestampMixin):
             return
         return super().__new__(cls)
 
+    def save_pen(self, pen):
+        self.pens[pen.id] = pen
+
+    def write(self, pen_id, text):
+        if not self.pens.get(pen_id):
+            print("You don't have such Pen. Choose again")
+            return
+        pen = self.pens[pen_id]
+        pen.write(text)
+
     def study(self, discipline):
         print(f"{self.name} is studying {discipline}")
 
@@ -73,11 +85,13 @@ class Student(Person, TimestampMixin):
         pass
 
 
-# student_pesho = Student(8, 9988855, "Pesho", 32, "Male", 185, scholarship=1000)
 student_gosho = Student(8, 9988855, "Gosho", 33, "Male", 185, scholarship=1000)
-student_misho = Student(8, 9988855, "Gosho", 17, "Male", 185, scholarship=1000)
+yellow_pen = Pen("Mont Blanc", 77, "yellow", 1011)
+student_gosho.save_pen(yellow_pen)
+student_gosho.write(yellow_pen.id, "CodeAcademy group is so strong!")
 
-print(student_gosho, student_misho)
+
+# print(student_gosho, student_misho)
 
 # student.study("Astro physics")
 # print(f"Student {student.name} read {student.read_books()}")

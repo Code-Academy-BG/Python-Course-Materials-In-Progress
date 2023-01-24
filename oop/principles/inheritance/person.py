@@ -1,8 +1,13 @@
 from oop.principles.inheritance.human import Human
 
 
+class PurePerson:
+    def __init__(self, name):
+        self.name = name
+
+
 class Person(Human):
-    def __init__(self, name, age, *args):
+    def __init__(self, name, age=None, *args):
         super().__init__(*args)
         self.name = name
         self.age = age
