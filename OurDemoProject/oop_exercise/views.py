@@ -1,10 +1,28 @@
 import json
 import os
+from datetime import datetime
 
 from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+
+
+TEST_DATA_DIR = os.path.join(settings.BASE_DIR, "oop_exercise", "test_data")
+
+
+def get_file_name(orders_date):
+    return f"Orders_{orders_date.replace('-', '_')}.json"
+
+
+def _get_has_such_file(orders_date):
+    return os.path.exists(os.path.join(TEST_DATA_DIR, get_file_name(orders_date)))
+
+
+def get_orders_info(orders_date):
+    with open(os.path.join(TEST_DATA_DIR, get_file_name(orders_date)), "r") as orders_source:
+        orders_loaded = json.load(orders_source)
+    return orders_loaded
 
 
 class OrdersAPI(APIView):
@@ -18,6 +36,12 @@ class OrdersAPI(APIView):
             return Response(
                 {"message": "date param is required and not provided"},
                 status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        orders_date = str(datetime.strptime(request.query_params["date"], "%Y-%m-%d").date())
+        if not _get_has_such_file(orders_date):
+            return Response(
+                {"message": "No information on this date"}
             )
 
         # Add OrdersGrouperData class that should return:
@@ -43,4 +67,8 @@ class OrdersAPI(APIView):
         # You may, or you may not use several additional grouping and / or error collecting classes.
 
         # By default, the Response status return status 200 which is totally fine.
-        return Response()
+
+        return Response({
+            "grouped_orders": get_orders_info(orders_date),
+            "bad_to_locations": {},
+        })
