@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
+from oop_exercise.grouper.orders_grouper import OrdersGrouper
 
 TEST_DATA_DIR = os.path.join(settings.BASE_DIR, "oop_exercise", "test_data")
 
@@ -23,6 +24,12 @@ def get_orders_info(orders_date):
     with open(os.path.join(TEST_DATA_DIR, get_file_name(orders_date)), "r") as orders_source:
         orders_loaded = json.load(orders_source)
     return orders_loaded
+
+
+def get_grouped_by_location(orders_info):
+    for order_info in orders_info:
+        order_info["details"].sort(key=lambda detail: detail["location"])
+    return orders_info
 
 
 class OrdersAPI(APIView):
@@ -68,7 +75,11 @@ class OrdersAPI(APIView):
 
         # By default, the Response status return status 200 which is totally fine.
 
+        grouper = OrdersGrouper(get_orders_info(orders_date))
         return Response({
-            "grouped_orders": get_orders_info(orders_date),
-            "bad_to_locations": {},
+            "grouped_orders": grouper.get_grouped_data(),
+            "bad_data": {
+                "locations": grouper.bad_data_tracker.bad_locations,
+                "to_locations": grouper.bad_data_tracker.bad_to_locations,
+            },
         })
