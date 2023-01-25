@@ -1,8 +1,12 @@
 def get_min_of_three_members(x, y, z):
+    def get_min_of_two_members(a, b):
+        if a <= b:
+            return a
+        return b
     # finish the function by adding code that would return the minimum of x, y and z
     # Use another function to find the minimum of y and z
     # Do not use the builtin min()
-    pass
+    return get_min_of_two_members(x, get_min_of_two_members(y, z))
 
 
 def reverse_string(string):

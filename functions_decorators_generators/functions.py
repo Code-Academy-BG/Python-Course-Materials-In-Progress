@@ -39,14 +39,12 @@ def store_names(name: str, names=[]):
     return names
 
 
-result = 80
-
 def power(x, y):
-    global result
-    while y > 0:
-        result *= x
+    exp = x
+    while y > 1:
+        x *= exp
         y -= 1
-    return result
+    return x
 
 
 def users_list(main_user, *users, main_user_age=None, **user_options):
