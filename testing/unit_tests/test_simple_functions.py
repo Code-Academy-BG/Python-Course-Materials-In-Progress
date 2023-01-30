@@ -31,6 +31,11 @@ def mock_response(*args, **kwargs):
 class SimpleFunctionsTests(TestCase):
     _today = datetime.now().date()
 
+    def setUp(self) -> None:
+        super().setUp()
+
+        self.some_instance_to_use_within_all_tests = "Pesho"
+
     def test_sum_two_numbers(self):
         # test_cases = [
         #     ((4, 5), 9),
@@ -53,7 +58,7 @@ class SimpleFunctionsTests(TestCase):
 
     @patch("testing.simple_functions.inner_func")
     def test_print_something(self, mock_inner_func):
-        print_something("tra", "la", "la")
+        print_something("tra", "la", "la", self.some_instance_to_use_within_all_tests)
         mock_inner_func.assert_called()
 
     @patch("requests.get", side_effect=mock_response)
